@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = FALSE)
 distribution.
 - The user inputs the rate parameter $\lambda$ and the app draws samples from the exponential distribution and plots the histogram.
 - The app also calculates the distribution of the mean of samples drawn from the exponential distribution
-- Note: This is different from the taking a large number of draws from the exponential distribution (as shown in the plot in the next slide which looks exponential).
+- Note: This is different from the taking a large number of draws from the exponential distribution (as shown in the plot in slide #3 which looks exponential).
 
 
 ## Exponential distribution
