@@ -1,0 +1,68 @@
+---
+title: "Properties of exponential distribution"
+date: "6/25/2017"
+output: slidy_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Introduction
+
+- This app describes the properties of an exponential
+distribution.
+- The user inputs the rate parameter $\lambda$ and the app draws samples from the exponential distribution and plots the histogram.
+- The app also calculates the distribution of the mean of samples drawn from the exponential distribution
+- Note: This is different from the taking a large number of draws from the exponential distribution (as shown in the plot in the next slide which looks exponential).
+
+
+## Exponential distribution
+
+A random variable is said to follow an exponential distribution with rate $\lambda$ is the associated probablity density is 
+$$P(x) = \lambda \exp(-\lambda x)$$
+and it is defined for $x>0$. It describes the times between events in a Poisson process i.e., a process in which the events occur continuously and independently at a constant average rate $\lambda$.
+
+If $X$ is a random variable with this density, then the expected values of the mean and standard deviation are both
+$1/\lambda$.
+
+
+## Drawing samples
+
+A histogram of 1000 draws from this distribution is given below:
+
+```{r fig.height=4}
+lambda <- 0.2
+mns0 <- rexp(1000, rate = lambda)
+hist(mns0, breaks = 50,
+     xlab = "x", ylab = "Frequency",
+     main = "")
+```
+
+
+## Sample average of the mean
+Now let's sample $n = 40$ random variables from this distribution, 
+find its average and repeat the simulation 1000 times. The sample average of the mean and its sample variance can be calculated. 
+
+```{r fig.height=4}
+n <- 40
+lambda <- 0.2
+avg_theory <- 1/lambda
+
+mns <- NULL
+for (i in 1 : 1000) mns <- c(mns, mean(rexp(n, rate = lambda)))
+avg_sim <- mean(mns)
+
+hist(mns, breaks = 50, density = 10, probability = TRUE,
+     xlab = "Mean", ylab = "Density", 
+     main = "")
+rug(mns, col = "green")
+abline(v = avg_sim, col = "red")
+abline(v = avg_theory, col = "blue")
+legend("topright", 
+       legend=c(paste("Sample Mean = ", round(avg_sim,3)),
+                paste("Theoretical Mean = ", avg_theory)),
+       col=c("red", "blue"), lty=1, cex=0.8)
+lines(density(mns), col="black", lwd=2)
+```
+
